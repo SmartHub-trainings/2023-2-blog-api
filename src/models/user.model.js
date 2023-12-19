@@ -1,34 +1,38 @@
 const { Schema, model } = require("mongoose");
-const constants = require("../configs/constants");
 
-const PostSchema = new Schema(
+const UserSchema = new Schema(
   {
-    title: {
+    email: {
       type: String,
       required: true,
+      unique: true,
+      lower: true,
     },
-    description: {
+    password: {
       type: String,
       required: true,
+      select: false,
     },
-    category: {
+    username: {
       type: String,
       required: true,
-      enum: constants.postCategories,
+      unique: true,
     },
-    createdBy: {
+    lastName: {
       type: String,
-      // ref:
     },
-    body: {
+    firstName: {
       type: String,
-      required: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
     },
   },
   { timestamps: true }
 );
 
-const Blog = model("Post", PostSchema);
+const Blog = model("User", UserSchema);
 
 module.exports = Blog;
 
